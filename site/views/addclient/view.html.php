@@ -19,17 +19,10 @@ function isAllowed($chech_perms, $user_perms) {
 	return $is_allowed;
 }
 
-//verify email
-function checkEmail($str) {
-	return preg_match("/^[\.A-z0-9_\-\+]+[@][A-z0-9_\-]+([.][A-z0-9_\-]+)+[A-z]{1,4}$/", $str);
-}
-
 //Class for creating custom users
 class quantumUser {
-
     private $myarr, $id, $output = '';
 
-	//verify form input
     private function processForm() {
        $arr = array();
 	   $arr['title'] = JRequest::getWord('title', '', 'POST');
@@ -40,9 +33,19 @@ class quantumUser {
 	   $arr['tel'] = JRequest::getInt('tel', '', 'POST');
 	   $arr['fax'] = JRequest::getInt('fax', '', 'POST' ); 
 	   $arr['password'] = JRequest::getString('password', '', 'POST');
-       $arr['subscribe'] = JRequest::getInt('subscribe', 1, 'POST'); 	   
+	   $arr['subscribe'] = JRequest::getString('subscribe', '', 'POST');
+     
+       foreach ($arr as $k=>$v) {
+	       if (!$v && $k != 'subscribe') {
+               echo "<script language=\"JavaScript\">
+			            alert (\"Please fill in the $k feild\");
+					    history.go(-1);
+				     </script>";
+            exit();		   
+		   }
+	   }   
 	   
-	   if(!checkEmail($arr['email'])) {
+	   if (!preg_match("/^[\.A-z0-9_\-\+]+[@][A-z0-9_\-]+([.][A-z0-9_\-]+)+[A-z]{1,4}$/", $arr['email'])) {
            echo '<script language="JavaScript">
 			        alert ("Invalid Email");
 					history.go(-1);
@@ -56,7 +59,7 @@ class quantumUser {
 	
     public function create() {
 	    $output='';
-		$home = "index.php?option=com_quantumfp&view=addclient";
+	    $mailtext='';
 	    $this->processForm();
 		
 	    $user['fullname'] = $this->myarr['fullname'];
@@ -89,15 +92,21 @@ class quantumUser {
 			$this->createFolder();
 			
 			$output .= "<h2>New User created</h2>";
-			$output .= "-----------------------------------------";			
+			$mailtext .= "QuantumFP Client Account";
+			$output .= "-----------------------------------------";	
+            $mailtext .= "\n---------------------------------------------------";		
 			$output .= "<p><strong>Name:</strong> \t ".$user['fullname']."</p>";
+			$mailtext .= "\n Name: \t ".$user['fullname'];
+			$mailtext .= "\n Username: \t ".$user['username'];
 			$output .= "<p><strong>Username:</strong> \t ".$user['username']."</p>";
+			$mailtext .= "\n Password: \t ".$this->myarr['password'];
 			$output .= "<p><strong>Password:</strong> \t ".$this->myarr['password']."</p>";
 			$output .= "<br /> -----------------------------------------";
+			$mailtext .= "\n---------------------------------------------------";
+			$mailtext .= "\n\nPlease login to www.quantumfp.co.za/home/ to edit your details.";
 			
-			$output .= "<p><a href=\"$home\">Go Back</a></p>";
-			
-			
+			$this->send_mail('no-reply@quantumfp.co.za', $user['email'], 'New Quantum FP client account', $mailtext);
+			$output .= "<p><a href=\"#back\" onclick=\"history.go(-1); return false;\">Go Back</a></p>";		
 			
 			return $output;
 		}
@@ -105,18 +114,24 @@ class quantumUser {
 	        return JError::raiseWarning('SOME_ERROR_CODE', $instance->getError());	
         }			
     }
-	//adds more user info
+	
     private function addInfo() {
 	  if (isset($this->id)) {
 	    $title = $this->myarr['title'];
 		$cell = $this->myarr['cell'];
 		$tel = $this->myarr['tel'];
 		$fax = $this->myarr['fax'];
+		$fax = $this->myarr['fax'];
         $user_id = $this->id;
-		
+		if($this->myarr['subscribe'] == 'yes'){
+		   $subscribe = 1;
+		}
+		else {
+       $subscribe = 0;
+    }
         $db =& JFactory::getDBO();
-        $query = "INSERT INTO jos_quantum_users(user_id, title, cell, tel, fax) 
-		          VALUES('".$user_id."', '".$title."', '".$cell."', '".$tel."', '".$fax."')";
+        $query = "INSERT INTO #__quantum_users(user_id, title, cell, tel, fax, subscribe) 
+		          VALUES('".$user_id."', '".$title."', '".$cell."', '".$tel."', '".$fax."', '".$subscribe."')";
         $db->setQuery($query);
 		
 		return $db->query();
@@ -144,9 +159,23 @@ class quantumUser {
         }
       }		
     }
+   
+    private function send_mail($from,$to,$subject,$body) {
+	    $headers = '';
+	    $headers .= "From: $from\n";
+	    $headers .= "Reply-to: $from\n";
+	    $headers .= "Return-Path: $from\n";
+	    $headers .= "Message-ID: <" . md5(uniqid(time())) . "@" . $_SERVER['SERVER_NAME'] . ">\n";
+	    $headers .= "MIME-Version: 1.0\n";
+	    $headers .= "Date: " . date('r', time()) . "\n";
+
+	    mail($to,$subject,$body,$headers);
+    }
 }
+
+
 /**
- * HTML View class for the HelloWorld Component
+ * HTML View class for the QuantumFp Component
  */
 class QuantumFpViewAddClient extends JView
 {
@@ -166,7 +195,7 @@ class QuantumFpViewAddClient extends JView
                     $a = $myClas->create();
 					
                     echo $a;
-					return true;
+					exit();
 				}
 				
                 // Check for errors.
@@ -177,6 +206,5 @@ class QuantumFpViewAddClient extends JView
                 }
                 // Display the view
                 parent::display($tpl);
-
         }
 }

@@ -1,6 +1,6 @@
-<?php
-defined('_JEXEC') or die('Restricted Access');
+<?php
+defined('_JEXEC') or die('Restricted Access');
 ?>
- <a href="https://plus.google.com/u/0/111595084798587457827/about" target="_blank" style="text-decoration:none;">&copy; Copyright - Raging Flame</a>
+ &copy;2011 Raging Flame - <a href="http://www.rflab.co.za/" target="_blank" style="text-decoration:none;">Software License</a>
 </div>
 

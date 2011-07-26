@@ -4,7 +4,6 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modelitem');
 class QuantumFpModelDetails extends JModelItem
 {
-
         protected $users;
 
         private function combineMyArrays($arr1, $arr2) 
@@ -16,7 +15,7 @@ class QuantumFpModelDetails extends JModelItem
 					      foreach($val as $key2 => $val2) {
                               $resul[0][$key2] = $val2;
 					      }
-					}
+					}
                 return $resul;
         }
         public function getUsers() 
@@ -29,10 +28,10 @@ class QuantumFpModelDetails extends JModelItem
                        $query = $query = "SELECT id, name, username, email FROM #__users WHERE jos_users.id=$id";
 					   $query2 = "SELECT title,  fax, cell, tel  FROM #__quantum_users WHERE user_id = $id";
                        $db->setQuery($query);
-				       $users1 = $db->loadAssocList();
+				       $user_table1 = $db->loadAssocList();
 					   $db->setQuery($query2);
-					   $users2 = $db->loadAssocList();
-					   $this->users = $this->combineMyArrays($users1, $users2);
+					   $user_table2 = $db->loadAssocList();
+					   $this->users = $this->combineMyArrays($user_table1, $user_table2);
                 }
                 return $this->users;
         }

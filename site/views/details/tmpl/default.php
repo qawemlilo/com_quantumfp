@@ -10,7 +10,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
 
 		    <a class="lbox" href="index.php?option=com_quantumfp&view=details">
 
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/users_details.png" alt="Article Manager">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_details.png" alt="Article Manager">
 
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">My Details</span>
 
@@ -21,7 +21,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
       <?php if(!$this->allowed) { ?>   
         <div class="h-div">
 		    <a class="lbox" href="index.php?option=com_quantumfp&view=clientpage">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/user_files.png" title="View your files" alt="My Files">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/user_files.png" title="View your files" alt="My Files">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Client Files</span>
 			</a>
         </div> 
@@ -29,7 +29,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
 		<?php } if($this->allowed) {?>
         <div class="h-div">
 		    <a class="lbox" href="index.php?option=com_content&view=form&layout=edit">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/article_add.png" alt="Article Manager">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/article_add.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Article</span>
 			</a>
         </div>
@@ -38,7 +38,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
 
         <div class="h-div">
 		    <a class="lbox" href="index.php?option=com_quantumfp&view=uploadfile">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/file_upload.png" alt="Article Manager">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/file_upload.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Upload File</span>
 			</a>
         </div> 
@@ -47,7 +47,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
 
         <div class="h-div">
 		    <a class="lbox" href="index.php?option=com_quantumfp&view=addclient">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/users_add.png" alt="Article Manager">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_add.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Client</span>
 			</a>
         </div> 

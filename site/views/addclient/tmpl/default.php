@@ -4,37 +4,36 @@ defined('_JEXEC') or die('Restricted access');
 $document = &JFactory::getDocument();
 $document->addStyleSheet('components/com_quantumfp/files/style.css'); 
 ?>
-
 <script type="text/javascript">
-
+var a = 'placeholder';
 </script>
-<div style="min-height:525px;">
+<div style="min-height:525px;" id="app-cont">
 
-    <div class="q_logo" id="app-cont"><span class="span">QuantumFP Client File Management System</span>  
+    <div class="q_logo"><span class="span">QuantumFP Client File Management System</span>  
         <div class="h-div">
-		    <a class="lbox" href="http://www.quantumfp.co.za/home/index.php?option=com_quantumfp&view=details">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/users_details.png" alt="Article Manager">
+		    <a class="lbox" href="index.php?option=com_quantumfp&view=details">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_details.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">My Details</span>
 			</a>
         </div> 
 
         <div class="h-div">
-		    <a class="lbox" href="http://www.quantumfp.co.za/home/index.php?option=com_content&view=form&layout=edit">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/article_add.png" alt="Article Manager">
+		    <a class="lbox" href="index.php?option=com_content&view=form&layout=edit">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/article_add.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Article</span>
 			</a>
         </div>
 
         <div class="h-div">
-		    <a class="lbox" href="http://www.quantumfp.co.za/home/index.php?option=com_quantumfp&view=uploadfile">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/file_upload.png" alt="Article Manager">
+		    <a class="lbox" href="index.php?option=com_quantumfp&view=uploadfile">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/file_upload.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Upload File</span>
 			</a>
         </div> 
 
         <div class="h-div">
-		    <a class="lbox" href="http://www.quantumfp.co.za/home/index.php?option=com_quantumfp&view=addclient">
-			    <img style="margin: 0pt auto;" src="/home/media/com_quantumfp/images/users_add.png" alt="Article Manager">
+		    <a class="lbox" href="index.php?option=com_quantumfp&view=addclient">
+			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_add.png" alt="Article Manager">
 				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Client</span>
 			</a>
         </div> 
@@ -44,7 +43,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
 
     <div style="clear:left;">&nbsp;</div>
     <div id="add_user"> 
-      <form onsubmit="return validate_form(this);"  action="index.php?option=com_quantumfp&view=addclient" method="post" enctype="multipart/form-data">
+      <form action="index.php?option=com_quantumfp&view=addclient" method="post" enctype="multipart/form-data">
         <fieldset style="-moz-border-radius: 4px;"> 
           <legend>Add User</legend>
           <input type="hidden" name="import" value="1" />
@@ -144,5 +143,5 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
     </fieldset>
   </form>
   </div>
-    <a href="http://www.rflab.co.za/" target="_blank" style="text-decoration:none;">&copy; Copyright - Raging Flame</a>
+     &copy;2011 Raging Flame - <a href="http://www.rflab.co.za/" target="_blank" style="text-decoration:none;">Software License</a>
 </div>

@@ -1,5 +1,8 @@
 <?php
 defined('_JEXEC') or die('Restricted Access');
+
+jimport('joomla.filesystem.file');
+$tracker = "media/com_quantumfp/client_folders/user_{$this->userId}/tracker.pdf";
 ?>
         <table class="adminlist" id="tracker">
 		   <caption>Investment Tracker</caption>
@@ -17,19 +20,25 @@ defined('_JEXEC') or die('Restricted Access');
                 </tr>
 			</thead>		
             <tbody>
-			    <?php foreach ($this->tracker as $row) { ?>
                 <tr>
                     <td>
-                        <?php echo $row['name']; ?>
+                        <?php if(JFile::exists($tracker)) echo "tracker.pdf"; 
+						      else echo "Not available";
+						?>
                     </td>
                     <td>
-                        <?php echo $row['ts']; ?>
+                        <?php
+                           if(JFile::exists($tracker)) echo date('Y-m-d H:i:s', filemtime($tracker)); 
+                            else echo "Not available";
+                        ?>
                     </td>
                     <td>
-                        <a href="<?php echo $row['file_url']; ?>" target="_blank"> Download </a>
+                        <?php 
+                            if(JFile::exists($tracker)) echo "<a href=\"index.php?option=com_quantumfp&view=clientpage&file=tracker.pdf\"> Download </a>"; 
+						    else echo "Not available";
+                        ?>
                     </td>                     
                 </tr>
-				<?php } ?>
 			</tbody>
         </table>
 		
@@ -49,7 +58,19 @@ defined('_JEXEC') or die('Restricted Access');
                 </tr>
 			</thead>
             <tbody>
-			    <?php   foreach($this->correspondence as $i=>$row) { ?>
+			    <?php   if (!(count($this->correspondence) > 0)) { ?>
+                <tr>
+                    <td>
+                         Not Available
+                    </td>
+                    <td>
+                         Not Available
+                    </td>
+                    <td>
+                         Not Available
+                    </td>                     
+                </tr>
+			    <?php }  foreach($this->correspondence as $i=>$row) { ?>
                 <tr>
                     <td class="<?php if ($i % 2 == 0) echo 'alt'; ?>">
                         <?php echo $row['name']; ?>
@@ -58,7 +79,7 @@ defined('_JEXEC') or die('Restricted Access');
                         <?php echo $row['ts']; ?>
                     </td>
                     <td class="<?php if ($i % 2 == 0) echo 'alt'; ?>">
-                        <a href="<?php echo $row['file_url']; ?>" target="_blank"> Download </a>
+                        <a href="index.php?option=com_quantumfp&view=clientpage&file=<?php echo $row['name']; ?>"> Download </a>
                     </td>                     
                 </tr>
 				<?php } ?>
@@ -81,7 +102,19 @@ defined('_JEXEC') or die('Restricted Access');
 			</thead>
 			
             <tbody>
-			    <?php foreach($this->document as $c=>$row) { ?>
+			    <?php   if (!(count($this->document) > 0)) { ?>
+                <tr>
+                    <td>
+                         Not Available
+                    </td>
+                    <td>
+                         Not Available
+                    </td>
+                    <td>
+                         Not Available
+                    </td>                     
+                </tr>
+			    <?php } foreach($this->document as $c=>$row) { ?>
                 <tr>
                     <td class="<?php if ($c % 2 == 0) echo 'alt'; ?>">
                         <?php echo $row['name']; ?>
@@ -90,7 +123,7 @@ defined('_JEXEC') or die('Restricted Access');
                         <?php echo $row['ts']; ?>
                     </td>
                     <td class="<?php if ($c % 2 == 0) echo 'alt'; ?>">
-                        <a href="<?php echo $row['file_url']; ?>" target="_blank"> Download </a>
+                        <a href="index.php?option=com_quantumfp&view=clientpage&file=<?php echo $row['name']; ?>"> Download </a>
                     </td>                     
                 </tr>
 				<?php } ?>

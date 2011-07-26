@@ -33,24 +33,46 @@ class quantumFiles {
 		
 		$filename = JFile::makeSafe($file['name']);
 		$src = $file['tmp_name'];
-		$dest = JPATH_SITE . DS . 'media' . DS . 'com_quantumfp' . DS . 'client_folders' . DS . 'user_' . $client . DS . $filename;
 		
 		$this->client = $client;
 		$this->filename = $filename;
 		$this->filetype = $filetype;
 		
 		if ( strtolower(JFile::getExt($filename) ) == 'pdf') {
+		
+		    if($filetype == 'tracker') {
+		        $dest = JPATH_SITE . DS . 'media' . DS . 'com_quantumfp' . DS . 'client_folders' . DS . 'user_' . $client . DS . 'tracker.pdf';
+		      if (JFile::exists("media/com_quantumfp/client_folders/user_{$client}/tracker.pdf")) {
+              JFile::delete("media/com_quantumfp/client_folders/user_{$client}/tracker.pdf");  
+          }
+		    }
+		    else {
+            $dest = JPATH_SITE . DS . 'media' . DS . 'com_quantumfp' . DS . 'client_folders' . DS . 'user_' . $client . DS . $filename;
+        }
+    
 		    if ( JFile::upload($src, $dest) ) {
 			
-		      $this->databaseRegister();
+		      if ($this->databaseRegister()) {
 			
-			    $output .= "<h2 style=\"color: green\">File uploaded successful</h2>";
-			    $output .= "-----------------------------------------";			
-			    $output .= "<p><strong>Client:</strong> \t " . $userName . "</p>";
-			    $output .= "<p><strong>File Type</strong> \t " . $filetype . "</p>";
-			    $output .= "<br /> -----------------------------------------";
+			      $output .= "<h2 style=\"color: green\">File uploaded successful</h2>";
+			      $output .= "-----------------------------------------";			
+			      $output .= "<p><strong>Client:</strong> \t " . $userName . "</p>";
+			      $output .= "<p><strong>File Type</strong> \t " . $filetype . "</p>";
+			      $output .= "<br /> -----------------------------------------";
 			
-			    $output .= "<p><a href=\"$home\">Go Back</a></p>";
+			      $output .= "<p><a href=\"$home\">Go Back</a></p>";
+			   }
+			   
+		     else {
+			
+			      $output .= "<h2 style=\"color: red\">File uploaded not registered in database</h2>";
+			      $output .= "-----------------------------------------";			
+			      $output .= "<p><strong>Client:</strong> \t " . $userName . "</p>";
+			      $output .= "<p><strong>File Type</strong> \t " . $filetype . "</p>";
+			      $output .= "<br /> -----------------------------------------";
+			
+			      $output .= "<p><a href=\"$home\">Go Back</a></p>";
+			   }
 			
 			    return $output;
 				
@@ -61,7 +83,7 @@ class quantumFiles {
 			    $output .= "<p><strong>File Type</strong> \t " . $filetype . "</p>";
 			    $output .= "<br /> -----------------------------------------";
 			
-			    $output .= "<p><a href=\"$home\">Go Back</a></p>";         
+			    $output .= "<p><a href=\"#\" onclick=\"history.go(-1); return false;\">Go Back</a></p>";         
             }
 		}
   }	
@@ -70,46 +92,44 @@ class quantumFiles {
 		$user_id = $this->client;
 		$name = $this->filename;
 		$file_type = $this->filetype;
-		$file_url = "http://www.quantumfp.co.za/home/media/com_quantumfp/client_folders/user_" . $user_id ."/" . $name;
+		$file_url = JPATH_SITE  . "/media/com_quantumfp/client_folders/user_" . $user_id ."/" . $name;
 		
-    $db =& JFactory::getDBO();
-    if ($file_type == 'tracker') {
-        $query = "UPDATE jos_quantum_files SET `name`= '".$name."', `file_url`='".$file_url."' WHERE `user_id`='".$user_id."' AND `file_type`='tracker'";
-    }
-    else {
-        $query = "INSERT INTO jos_quantum_files(`user_id`, `name`, `file_url`, `file_type`) VALUES('".$user_id."','".$name."','".$file_url."','".$file_type."')";
-    }
-    $db->setQuery($query);
+       $db =& JFactory::getDBO();
+       if ($file_type == 'tracker') {
+          return true;
+       }
+       else {
+         $query = "INSERT INTO #__quantum_files(`user_id`, `name`, `file_url`, `file_type`) VALUES('".$user_id."','".$name."','".$file_url."','".$file_type."')";
+       }
+       $db->setQuery($query);
 		
 		return $db->query();    
   }
 }
 
+
 /**
-
- * HTML View class for the HelloWorld Component
-
+ * HTML View class for the QuantumFp Component
  */
-
 class QuantumFpViewUploadFile extends JView {
 
     // Overwriting JView display method
     function display($tpl = null)  {
 
 		    $currentUser =& JFactory::getUser();
-				$this->allowed = isAllowed(3, $currentUser->authorisedLevels());
+			$this->allowed = isAllowed(3, $currentUser->authorisedLevels());
 
-			  if(!$this->allowed) {
-	         header("Location: index.php");
-           return;
+			if(!$this->allowed) {
+	        header("Location: index.php");
+            exit();
         }
         
-			  if(isset($_POST['import'])) {
+	    if (isset($_POST['import'])) {
 	         $quantumFiles = new quantumFiles();   
 	         $result = $quantumFiles->upload($currentUser->get('name'));
 	         
 	         echo $result;
-           return;
+             exit();
         }
 
         $this->users = $this->get('Users');
@@ -117,10 +137,10 @@ class QuantumFpViewUploadFile extends JView {
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
             JError::raiseError(500, implode('<br />', $errors));
-            return false;
+            exit();
         }
         // Display the view
         parent::display($tpl);
      }
-}
+}}
 
