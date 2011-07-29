@@ -3,70 +3,8 @@ defined('_JEXEC') or die('Restricted access');
 
 $document = &JFactory::getDocument();
 $document->addStyleSheet('components/com_quantumfp/files/style.css');
+require("components/com_quantumfp/files/inc/header.html.php");
 ?>
-
-<div style="min-height:525px;">
-    <div class="q_logo"><span class="span">QuantumFP Client File Management System</span>  
-        <div class="h-div">
-		    <a class="lbox" href="index.php?option=com_quantumfp&view=details">
-
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_details.png" alt="Article Manager">
-
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">My Details</span>
-
-			</a>
-
-        </div> 
-
-		
-
-        <div class="h-div">
-
-		    <a class="lbox" href="index.php?option=com_content&view=form&layout=edit">
-
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/article_add.png" alt="Article Manager">
-
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Article</span>
-
-			</a>
-
-        </div> 
-
-		
-
-        <div class="h-div">
-
-		    <a class="lbox" href="index.php?option=com_quantumfp&view=uploadfile">
-
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/file_upload.png" alt="Article Manager">
-
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Upload File</span>
-
-			</a>
-
-        </div> 
-
-		
-
-        <div class="h-div">
-
-		    <a class="lbox" href="index.php?option=com_quantumfp&view=addclient">
-
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_add.png" alt="Article Manager">
-
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Client</span>
-
-			</a>
-
-        </div> 
-
-
-
-    </div>
-
-	
-
-    <div style="clear:left;">&nbsp;</div>
 
 	
 
@@ -194,8 +132,7 @@ $document->addStyleSheet('components/com_quantumfp/files/style.css');
 
   </form>
 
-</div><br />
-
-<a href="https://plus.google.com/u/0/111595084798587457827/about" target="_blank" style="text-decoration:none;">&copy; Copyright - Raging Flame</a>
-
 </div>
+<?php
+require("components/com_quantumfp/files/inc/footer.html.php");
+?>

@@ -5,20 +5,21 @@ jimport('joomla.filesystem.file');
 $tracker = "media/com_quantumfp/client_folders/user_{$this->userId}/tracker.pdf";
 ?>
         <table class="adminlist" id="tracker">
-		   <caption>Investment Tracker</caption>
+		   <caption>Client Files</caption>
             <thead>
 				<tr>
                     <th scope="col">
-                        <strong>File Name</strong>
+                        <strong>File type</strong>
                     </th>
                     <th scope="col">
-                        <strong>Last Updated</strong>
+                        <strong>Date of updated</strong>
                     </th>                     
                     <th scope="col">
-                        <strong>Downloads</strong>
+                        <strong>Download</strong>
                     </th>
                 </tr>
-			</thead>		
+			</thead>		
+
             <tbody>
                 <tr>
                     <td>
@@ -31,7 +32,8 @@ $tracker = "media/com_quantumfp/client_folders/user_{$this->userId}/tracker.pdf"
                            if(JFile::exists($tracker)) echo date('Y-m-d H:i:s', filemtime($tracker)); 
                             else echo "Not available";
                         ?>
-                    </td>
+                    </td>
+
                     <td>
                         <?php 
                             if(JFile::exists($tracker)) echo "<a href=\"index.php?option=com_quantumfp&view=clientpage&file=tracker.pdf\"> Download </a>"; 
@@ -39,34 +41,16 @@ $tracker = "media/com_quantumfp/client_folders/user_{$this->userId}/tracker.pdf"
                         ?>
                     </td>                     
                 </tr>
-			</tbody>
-        </table>
-		
-	    <table class="adminlist" id="correspondence">
-		    <caption>Correspondence</caption>
-            <thead>
-				<tr>
-                    <th>
-                        <strong>File Name</strong>
-                    </th>
-                    <th>
-                        <strong>Date of Upload</strong>
-                    </th>                     
-                    <th>
-                        <strong>Downloads</strong>
-                    </th>
-                </tr>
-			</thead>
-            <tbody>
+
 			    <?php   if (!(count($this->correspondence) > 0)) { ?>
                 <tr>
-                    <td>
+                    <td class="alt">
                          Not Available
                     </td>
-                    <td>
+                    <td class="alt">
                          Not Available
                     </td>
-                    <td>
+                    <td class="alt">
                          Not Available
                     </td>                     
                 </tr>
@@ -82,27 +66,9 @@ $tracker = "media/com_quantumfp/client_folders/user_{$this->userId}/tracker.pdf"
                         <a href="index.php?option=com_quantumfp&view=clientpage&file=<?php echo $row['name']; ?>"> Download </a>
                     </td>                     
                 </tr>
-				<?php } ?>
-			</tbody>
-        </table>
-        <table class="adminlist" id="documents">
-		   <caption>Documents</caption>
-            <thead>
-				<tr>
-                    <th>
-                        <strong>File Name</strong>
-                    </th>
-                    <th>
-                        <strong>Date of Upload</strong>
-                    </th>                     
-                    <th>
-                        <strong>Downloads</strong>
-                    </th>
-                </tr>
-			</thead>
-			
-            <tbody>
-			    <?php   if (!(count($this->document) > 0)) { ?>
+				<?php 
+				}
+				if (!(count($this->document) > 0)) { ?>
                 <tr>
                     <td>
                          Not Available

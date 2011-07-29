@@ -3,45 +3,9 @@ defined('_JEXEC') or die('Restricted access');
 
 $document = &JFactory::getDocument();
 $document->addStyleSheet('components/com_quantumfp/files/style.css'); 
+
+require("components/com_quantumfp/files/inc/header.html.php");
 ?>
-<script type="text/javascript">
-var a = 'placeholder';
-</script>
-<div style="min-height:525px;" id="app-cont">
-
-    <div class="q_logo"><span class="span">QuantumFP Client File Management System</span>  
-        <div class="h-div">
-		    <a class="lbox" href="index.php?option=com_quantumfp&view=details">
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_details.png" alt="Article Manager">
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">My Details</span>
-			</a>
-        </div> 
-
-        <div class="h-div">
-		    <a class="lbox" href="index.php?option=com_content&view=form&layout=edit">
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/article_add.png" alt="Article Manager">
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Article</span>
-			</a>
-        </div>
-
-        <div class="h-div">
-		    <a class="lbox" href="index.php?option=com_quantumfp&view=uploadfile">
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/file_upload.png" alt="Article Manager">
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Upload File</span>
-			</a>
-        </div> 
-
-        <div class="h-div">
-		    <a class="lbox" href="index.php?option=com_quantumfp&view=addclient">
-			    <img style="margin: 0pt auto;" src="components/com_quantumfp/files/images/users_add.png" alt="Article Manager">
-				<span style="display: block; text-align: center; margin-top: 2px; font-size: 10px;">Add Client</span>
-			</a>
-        </div> 
-    </div>
-
-	
-
-    <div style="clear:left;">&nbsp;</div>
     <div id="add_user"> 
       <form action="index.php?option=com_quantumfp&view=addclient" method="post" enctype="multipart/form-data">
         <fieldset style="-moz-border-radius: 4px;"> 
@@ -143,5 +107,6 @@ var a = 'placeholder';
     </fieldset>
   </form>
   </div>
-     &copy;2011 Raging Flame - <a href="http://www.rflab.co.za/" target="_blank" style="text-decoration:none;">Software License</a>
-</div>
+<?php
+require("components/com_quantumfp/files/inc/footer.html.php");
+?>

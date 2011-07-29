@@ -142,5 +142,5 @@ class QuantumFpViewUploadFile extends JView {
         // Display the view
         parent::display($tpl);
      }
-}}
+}
 

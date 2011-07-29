@@ -13,7 +13,7 @@ class QuantumFpModelUploadFile extends JModelItem
 					   $query = "SELECT DISTINCT user_id FROM #__quantum_users";
 					   $db->setQuery($query);
 					   $result = $db->loadResultArray();
-					   $query_two_string = implode(",", $id_arr);
+					   $query_two_string = implode(",", $result);
 					   
                        $query_two = "SELECT id, name FROM #__users WHERE id in ($query_two_string)";
                        $db->setQuery($query_two);
